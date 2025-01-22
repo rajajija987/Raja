@@ -11,3 +11,10 @@ deploy:
   script: bash deploy-to-aws.sh
   on:
     branch: main
+before_install:
+  - echo "$SSH_PRIVATE_KEY" | base64 --decode > ~/.ssh/id_rsa
+  - chmod 600 ~/.ssh/id_rsa
+  - ssh-keyscan -H <44.203.197.119> >> ~/.ssh/known_hosts
+
+script:
+  - ssh -i ~/.ssh/id_rsa ubuntu@remote-server-ip "echo 'SSH Connection Successful!'"
