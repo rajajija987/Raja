@@ -1,0 +1,13 @@
+language: python
+python:
+  - "3.8"
+services:
+  - docker
+script:
+  - docker build -t my-app .
+  - docker run my-app
+deploy:
+  provider: script
+  script: bash deploy-to-aws.sh
+  on:
+    branch: main
